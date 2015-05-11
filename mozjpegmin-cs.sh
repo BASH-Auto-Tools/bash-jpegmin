@@ -85,8 +85,11 @@ function search_quality
 		else
 			q=$(((qmax+3*qmin)/4))
 		fi
-		if [ $q -eq $qmax -o $q -eq $qmin ]; then
-			q=$(((qmax+qmin+1)/2))
+		if [ $q -eq $qmax ]; then
+			q=$(((qmax-1)))
+		fi
+		if [ $q -eq $qmin ]; then
+			q=$(((qmin+1)))
 		fi
 		mozcjpeg -quality $q -outfile "$tmpfile" "$src"
 		convert -edge 3 "$tmpfile" "$tmpfileedge"
