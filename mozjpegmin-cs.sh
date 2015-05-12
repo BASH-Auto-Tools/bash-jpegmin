@@ -81,9 +81,9 @@ function search_quality
 	do
 		cmppctb=`echo "$cmpmax < $cmpmin" | bc`
 		if [ $cmppctb -eq 1 ]; then
-			q=$(((3*qmax+qmin)/4))
+			q=$(((4*qmax+qmin)/5))
 		else
-			q=$(((qmax+3*qmin)/4))
+			q=$(((2*qmax+3*qmin)/5))
 		fi
 		if [ $q -eq $qmax ]; then
 			q=$(((qmax-1)))
