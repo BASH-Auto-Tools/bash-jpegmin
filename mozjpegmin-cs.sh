@@ -12,6 +12,9 @@
 # Requires:
 #  Imagemagick tools 'convert' and 'compare' http://www.imagemagick.org/
 #  Improved JPEG encoder https://github.com/mozilla/mozjpeg/
+#  mozjpeg for debian:
+#  - wheezy - http://sourceforge.net/projects/debiannoofficial/files/wheezy-update/graphics/mozjpeg_3.0.20150402_i386.deb
+#  - jessie - http://sourceforge.net/projects/debiannoofficial/files/jessie-update/graphics/mozjpeg_3.0.20150509_i386.deb
 #
 # References:
 #   1. "Optimization of JPEG (JPG) images: good quality and small size", Retrieved May 23 2011, http://www.ampsoft.net/webdesign-l/jpeg-compression.html
