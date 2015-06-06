@@ -37,7 +37,7 @@ fi
 
 if [ -z "$2" ]
 then
-    dst="$src-mozjpegmin.jpg"
+    dst="${src%.*}-mozjpegmin.jpg"
 else
     dst="$2"
 fi
