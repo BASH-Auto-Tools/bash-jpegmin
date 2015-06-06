@@ -69,19 +69,20 @@ function search_quality
 
 	convert -edge 3 "$src" "$srcfileedge"
 
-	q0=1
+#	q0=1
 	q100=100
-	mozcjpeg -quality $q0 -outfile "$tmpfile" "$src"
-	convert -edge 3 "$tmpfile" "$tmpfileedge"
-	rs0=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
-	rs0=`echo "1-sqrt(1-$rs0)" | bc`
-	echo "$q0 -> $rs0"
+#	mozcjpeg -quality $q0 -outfile "$tmpfile" "$src"
+#	convert -edge 3 "$tmpfile" "$tmpfileedge"
+#	rs0=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
+#	rs0=`echo "1-sqrt(1-$rs0)" | bc`
+#	echo "$q0 -> $rs0"
 	mozcjpeg -quality $q100 -outfile "$tmpfile" "$src"
 	convert -edge 3 "$tmpfile" "$tmpfileedge"
 	rs100=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
 	rs100=`echo "1-sqrt(1-$rs100)" | bc`
 	echo "$q100 -> $rs100"
-	kq=`echo "(($rs100)-($rs0))/($q100-$q0)" | bc -l`
+#	kq=`echo "(($rs100)-($rs0))/($q100-$q0)" | bc -l`
+	kq=`echo "$rs100*0.01" | bc`
 	echo "kq -> $kq"
 	echo "----------------"
 
@@ -90,12 +91,14 @@ function search_quality
 	mozcjpeg -quality $qmin -outfile "$tmpfile" "$src"
 	convert -edge 3 "$tmpfile" "$tmpfileedge"
 	cmpmin=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
-	cmpmin=`echo "($qmin-$q0)*$kq+$rs0-1+sqrt(1-$cmpmin)" | bc`
+#	cmpmin=`echo "($qmin-$q0)*$kq+$rs0-1+sqrt(1-$cmpmin)" | bc`
+	cmpmin=`echo "$qmin*$kq-1+sqrt(1-$cmpmin)" | bc`
 	echo "$qmin -> $cmpmin"
 	mozcjpeg -quality $qmax -outfile "$tmpfile" "$src"
 	convert -edge 3 "$tmpfile" "$tmpfileedge"
 	cmpmax=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
-	cmpmax=`echo "($qmax-$q0)*$kq+$rs0-1+sqrt(1-$cmpmax)" | bc`
+#	cmpmax=`echo "($qmax-$q0)*$kq+$rs0-1+sqrt(1-$cmpmax)" | bc`
+	cmpmax=`echo "$qmax*$kq-1+sqrt(1-$cmpmax)" | bc`
 	echo "$qmax -> $cmpmax"
 	echo "----------------"
 	# binary search for lowest quality where compare < $cmpthreshold
@@ -116,7 +119,8 @@ function search_quality
 		mozcjpeg -quality $q -outfile "$tmpfile" "$src"
 		convert -edge 3 "$tmpfile" "$tmpfileedge"
 		cmppct=`compare -metric NCC "$srcfileedge" "$tmpfileedge" /dev/null 2>&1`
-		cmppct=`echo "($q-$q0)*$kq+$rs0-1+sqrt(1-$cmppct)" | bc`
+#		cmppct=`echo "($q-$q0)*$kq+$rs0-1+sqrt(1-$cmppct)" | bc`
+		cmppct=`echo "$q*$kq-1+sqrt(1-$cmppct)" | bc`
 		cmppctb=`echo "$cmpmax < $cmpmin" | bc`
 		if [ $cmppctb -eq 1 ]; then
 			qmax=$q
