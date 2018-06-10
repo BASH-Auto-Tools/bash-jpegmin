@@ -27,12 +27,12 @@ Possible combined application and other filters for activating factors unrelated
 jpegmin-zt-test:
 
 bash jpegmin-zt.sh lena.png  
-![lena.png](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/lena.png)  
+![lena.png](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/images/lena.png)  
 _lena-png_
 
 result:
 
-![lena-jpegmin.jpg](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/lena-jpegmin.jpg)  
+![lena-jpegmin.jpg](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/images/lena-jpegmin.jpg)  
 _lena-jpegmin.jpg_
 
 88 -> .342574  
@@ -41,6 +41,6 @@ Before:462KB After:58KB Saved:404KB(87%)
 index:
 
 bash jpemin-zt-test.sh lena.png  
-![test-lena.png](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/test-lena.png)  
+![test-lena.png](https://raw.githubusercontent.com/zvezdochiot/bash-jpegmin/master/images/test-lena.png)  
 _lena-jpegmin.csv_
 
