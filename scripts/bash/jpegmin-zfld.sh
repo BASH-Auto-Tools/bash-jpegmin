@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# Image minimizer (zeroface)
+# Image minimizer (zeroface linear descent)
 # Iteratively resamples image quality to a certain threshold, reducing image filesize but retaining quality similar to the original image
 #
 # Example usage:
-#	./jpegmin-zf.sh foo-before.png [foo-after.jpg]
+#	./jpegmin-zfld.sh foo-before.png [foo-after.jpg]
 #
 # Author: Ryan Flynn <parseerror+imgmin@gmail.com>
 # Modify: zvezdochiot <mykaralw@yandex.ru>
@@ -99,7 +99,7 @@ function search_quality
 	do
 		cmppctb=`echo "$cmpmax < $cmpmin" | bc`
 		if [ $cmppctb -eq 1 ]; then
-			q=$(((4*qmax+qmin)/5))
+			q=$(((qmax-1)))
 		else
 			q=$(((2*qmax+3*qmin)/5))
 		fi
